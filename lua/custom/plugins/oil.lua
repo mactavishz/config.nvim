@@ -9,6 +9,18 @@ return {
   config = function()
     require('oil').setup {
       default_file_explorer = true,
+      delete_to_trash = true,
+      skip_confirm_for_simple_edits = true,
+      view_options = {
+        show_hidden = true,
+        natural_sort = true,
+        is_always_hidden = function(name, _path)
+          return name:match '^%..*$' or name == 'node_modules' or name == '.git'
+        end,
+      },
+      win_options = {
+        wrap = true,
+      },
       keymaps = {
         ['<C-v>'] = { 'actions.select', opts = { vertical = true } },
         ['<C-x>'] = { 'actions.select', opts = { horizontal = true } },
@@ -17,9 +29,9 @@ return {
     }
 
     -- Open parent directory in current window
-    vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+    vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open oil in parent directory' })
 
     -- Open parent directory in floating window
-    vim.keymap.set('n', '<leader>-', require('oil').toggle_float)
+    vim.keymap.set('n', '<leader>-', require('oil').toggle_float, { desc = 'Open oil in floating window' })
   end,
 }

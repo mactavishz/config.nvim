@@ -13,6 +13,6 @@ return {
         open_split = '<C-x>',
       },
     }
-    vim.keymap.set('n', 'gb', snipe.open_buffer_menu, { noremap = true, silent = true, desc = 'Open Snipe buffer menu' })
+    vim.keymap.set('n', '<leader><leader>', snipe.open_buffer_menu, { noremap = true, silent = true, desc = 'Open Snipe buffer menu' })
   end,
 }
