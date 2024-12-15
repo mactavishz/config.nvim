@@ -7,6 +7,10 @@ return {
         -- Can be any of "topleft", "bottomleft", "topright", "bottomright", "center", "cursor" (sets under the current cursor pos)
         position = 'center',
       },
+      hints = {
+        -- Charaters to use for hints (NOTE: make sure they don't collide with the navigation keymaps)
+        dictionary = 'asdflewqrgcvb',
+      },
       navigate = {
         close_buffer = '<C-d>',
         open_vsplit = '<C-v>',
