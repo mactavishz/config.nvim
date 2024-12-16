@@ -15,7 +15,7 @@ return {
         show_hidden = true,
         natural_sort = true,
         is_always_hidden = function(name, _path)
-          return name:match '^%..*$' or name == 'node_modules' or name == '.git'
+          return name == 'node_modules' or name == '.git'
         end,
       },
       win_options = {

@@ -123,6 +123,10 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Keybinds to navigate between items in quickfix list
+vim.keymap.set('n', '<M-j>', '<cmd>cnext<CR>', { desc = 'Go to the next item in the quickfix list' })
+vim.keymap.set('n', '<M-k>', '<cmd>cnext<CR>', { desc = 'Go to the previous item in the quickfix list' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -297,7 +301,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]ind [R]esume' })
       vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind existing buffers' })
+      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[F]ind existing buffers' })
       vim.keymap.set('n', '<leader>fp', function()
         vim.cmd [[ Telescope luasnip ]]
       end, { desc = '[F]ind existing snippets' })
