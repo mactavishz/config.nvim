@@ -293,9 +293,21 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
+
+      -- Smartly opens either git_files or find_files, depending on whether the working directory is
+      -- contained in a Git repo.
+      function find_project_files(opts)
+        opts = opts or {}
+        local ok = pcall(builtin.git_files, opts)
+
+        if not ok then
+          builtin.find_files(opts)
+        end
+      end
+
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymaps' })
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
+      vim.keymap.set('n', '<leader>ff', find_project_files, { desc = '[F]ind [F]iles' })
       vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[F]ind current [W]ord' })
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
