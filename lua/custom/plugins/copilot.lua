@@ -32,9 +32,12 @@ return {
     end,
   },
   {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
-    end,
+    'giuxtaposition/blink-cmp-copilot',
   },
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   config = function()
+  --     require('copilot_cmp').setup()
+  --   end,
+  -- },
 }
