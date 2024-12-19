@@ -44,9 +44,6 @@ end)
 vim.opt.breakindent = true
 vim.opt.linebreak = true
 vim.opt.showbreak = '↪'
--- see: https://stackoverflow.com/questions/20975928/moving-the-cursor-through-long-soft-wrapped-lines-in-vim
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 -- Save undo history
 vim.opt.undofile = true
@@ -89,13 +86,30 @@ vim.opt.scrolloff = 10
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<CR>', function()
+  ---@diagnostic disable-next-line: undefined-field
+  if vim.v.hlsearch == 1 then
+    vim.cmd.nohl()
+    return ''
+  else
+    return vim.keycode '<CR>'
+  end
+end, { expr = true })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.api.nvim_set_keymap('n', 'QQ', ':q!<enter>', { noremap = false })
-vim.api.nvim_set_keymap('n', 'WW', ':w!<enter>', { noremap = false })
+vim.keymap.set('n', 'QQ', ':q!<enter>', { noremap = false })
+vim.keymap.set('n', 'WW', ':w!<enter>', { noremap = false })
+vim.keymap.set('n', 'E', '$', { noremap = false })
+vim.keymap.set('n', 'B', '^', { noremap = false })
+
+-- see: https://stackoverflow.com/questions/20975928/moving-the-cursor-through-long-soft-wrapped-lines-in-vim
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+
+vim.keymap.set('n', '<leader>x', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
+vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', { desc = 'Execute the current file' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -533,7 +547,7 @@ require('lazy').setup({
                 callSnippet = 'Replace',
               },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+              diagnostics = { disable = { 'missing-fields' } },
             },
           },
         },
