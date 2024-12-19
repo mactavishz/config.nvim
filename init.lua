@@ -24,6 +24,16 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+-- Enable 24-bit RGB color in the terminal
+vim.opt.termguicolors = true
+
+-- Folding
+vim.opt.foldcolumn = '1' -- '0' is not bad
+vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = false
+vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
 -- Don't extend the comments when pressing `o` or `O` in normal mode
 vim.api.nvim_create_autocmd('FileType', {
   pattern = '*',
@@ -98,15 +108,27 @@ end, { expr = true })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
+
+-- Exit insert mode without hitting Esc
+vim.keymap.set('i', 'jk', '<Esc><Esc>', { desc = 'Esc' })
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'QQ', ':q!<enter>', { noremap = false })
 vim.keymap.set('n', 'WW', ':w!<enter>', { noremap = false })
-vim.keymap.set('n', 'E', '$', { noremap = false })
-vim.keymap.set('n', 'B', '^', { noremap = false })
 
 -- see: https://stackoverflow.com/questions/20975928/moving-the-cursor-through-long-soft-wrapped-lines-in-vim
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+
+-- Stay in indent mode
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
+
+vim.keymap.set({ 'n', 'o', 'x' }, '<s-h>', '^', { desc = 'Jump to beginning of line' })
+vim.keymap.set({ 'n', 'o', 'x' }, '<s-l>', 'g_', { desc = 'Jump to end of line' })
+
+-- Move block
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move Block Down' })
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move Block Up' })
 
 vim.keymap.set('n', '<leader>x', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
 vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', { desc = 'Execute the current file' })
@@ -304,6 +326,7 @@ require('lazy').setup({
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'luasnip')
+      pcall(require('telescope').load_extension, 'notify')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -351,9 +374,9 @@ require('lazy').setup({
       end, { desc = '[F]ind [/] in Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>fn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[F]ind [N]eovim files' })
+      vim.keymap.set('n', '<leader>fm', function()
+        vim.cmd [[Telescope notify]]
+      end, { desc = '[F]ind [M]essages history' })
     end,
   },
 
@@ -386,7 +409,7 @@ require('lazy').setup({
       { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
-      'hrsh7th/cmp-nvim-lsp',
+      -- 'hrsh7th/cmp-nvim-lsp',
     },
     config = function(_, opts)
       --  This function gets run when an LSP attaches to a particular buffer.
@@ -498,6 +521,10 @@ require('lazy').setup({
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- capabilities.textDocument.foldingRange = {
+      --   dynamicRegistration = false,
+      --   lineFoldingOnly = true,
+      -- }
       -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       -- Enable the following language servers
@@ -554,13 +581,13 @@ require('lazy').setup({
         ansiblels = {},
       }
 
-      local lspconfig = require 'lspconfig'
-      for server, config in pairs(servers) do
-        -- passing config.capabilities to blink.cmp merges with the capabilities in your
-        -- `opts[server].capabilities, if you've defined it
-        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
-      end
+      -- local lspconfig = require 'lspconfig
+      -- for server, config in pairs(servers) do
+      --   -- passing config.capabilities to blink.cmp merges with the capabilities in your
+      --   -- `opts[server].capabilities, if you've defined it
+      --   config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+      --   lspconfig[server].setup(config)
+      -- end
 
       -- configure filetype
       vim.filetype.add { pattern = { ['.*%.ansible%..*'] = 'yaml.ansible' } }
@@ -580,7 +607,9 @@ require('lazy').setup({
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            local blink_capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities)
+
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, blink_capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
         },
