@@ -1,3 +1,9 @@
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -169,7 +175,7 @@ require('lazy').setup({
       -- Smartly opens either git_files or find_files, depending on whether the working directory is
       -- contained in a Git repo.
       function find_project_files(opts)
-        opts = opts or {}
+        local opts = vim.tbl_deep_extend('force', opts or {}, { show_untracked = true })
         local ok = pcall(builtin.git_files, opts)
 
         if not ok then
