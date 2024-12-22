@@ -86,8 +86,8 @@ local function toggleTerm()
   vim.cmd 'startinsert'
 end
 
-vim.keymap.set({ 'n', 't' }, '<leader>tt', toggleFloatingTerm, { desc = 'Toggle Floating Terminal' })
-vim.keymap.set({ 'n', 't' }, '<leader>bt', toggleTerm, { desc = 'Toggle Bottom Terminal' })
+vim.keymap.set({ 'n', 't' }, ',ft', toggleFloatingTerm, { desc = 'Toggle Floating Terminal' })
+vim.keymap.set({ 'n', 't' }, ',tt', toggleTerm, { desc = 'Toggle Bottom Terminal' })
 
 -- Set local settings for terminal buffers
 vim.api.nvim_create_autocmd('TermOpen', {
