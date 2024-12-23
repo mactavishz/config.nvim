@@ -375,7 +375,12 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local util = require 'lspconfig/util'
       local servers = {
-        clangd = {},
+        clangd = {
+          filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
+        },
+        buf_ls = {
+          filetypes = { 'proto' },
+        },
         gopls = {
           filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
           root_dir = util.root_pattern('go.mod', 'go.work', '.git'),
