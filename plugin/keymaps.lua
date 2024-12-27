@@ -54,6 +54,13 @@ vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
+-- buffers
+vim.api.nvim_set_keymap('n', ';k', ':blast<enter>', { noremap = false })
+vim.api.nvim_set_keymap('n', ';j', ':bfirst<enter>', { noremap = false })
+vim.api.nvim_set_keymap('n', ';h', ':bprev<enter>', { noremap = false })
+vim.api.nvim_set_keymap('n', ';l', ':bnext<enter>', { noremap = false })
+vim.api.nvim_set_keymap('n', ';d', ':bdelete<enter>', { noremap = false })
+
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --  See `:help wincmd` for a list of all window commands
