@@ -9,5 +9,10 @@ return {
     -- "ibhagwan/fzf-lua",              -- optional
     -- "echasnovski/mini.pick",         -- optional
   },
-  config = true,
+  config = function()
+    local neogit = require 'neogit'
+    vim.keymap.set('n', '<leader>gt', function()
+      neogit.open()
+    end, { noremap = true, silent = true, desc = 'Open Neogit' })
+  end,
 }
