@@ -14,5 +14,17 @@ return {
     vim.keymap.set('n', '<leader>gt', function()
       neogit.open()
     end, { noremap = true, silent = true, desc = 'Open Neogit' })
+
+    vim.keymap.set('n', '<leader>gc', function()
+      neogit.open { 'commit' }
+    end, { noremap = true, silent = true, desc = 'Open Neogit Commit' })
+
+    vim.keymap.set('n', '<leader>gp', function()
+      neogit.open { 'pull' }
+    end, { noremap = true, silent = true, desc = 'Open Neogit Pull' })
+
+    vim.keymap.set('n', '<leader>gP', function()
+      neogit.open { 'push' }
+    end, { noremap = true, silent = true, desc = 'Open Neogit Push' })
   end,
 }
