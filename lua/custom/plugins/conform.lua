@@ -54,7 +54,7 @@ return { -- Autoformat
 
       yaml = { 'yamlfix' },
 
-      sh = { 'shellcheck' },
+      sh = { 'shfmt' },
     },
   },
 }

@@ -7,7 +7,8 @@ return {
   dependencies = { { 'echasnovski/mini.icons', opts = {} } },
   -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   config = function()
-    require('oil').setup {
+    local oil = require 'oil'
+    oil.setup {
       default_file_explorer = true,
       delete_to_trash = true,
       skip_confirm_for_simple_edits = true,
@@ -28,10 +29,6 @@ return {
       },
     }
 
-    -- Open parent directory in current window
-    vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open oil in parent directory' })
-
-    -- Open parent directory in floating window
-    vim.keymap.set('n', '<leader>-', require('oil').toggle_float, { desc = 'Open oil in floating window' })
+    vim.keymap.set('n', '-', oil.toggle_float, { desc = 'Open oil in parent directory' })
   end,
 }
