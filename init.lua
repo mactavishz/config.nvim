@@ -397,7 +397,20 @@ require('lazy').setup({
           },
         },
         bashls = {},
-        pyright = {},
+        pyright = {
+          settings = {
+            pyright = {
+              disableOrganizeImports = true, -- Using Ruff
+            },
+            python = {
+              analysis = {
+                ignore = { '*' }, -- Using Ruff
+                typeCheckingMode = 'off', -- Using mypy
+              },
+            },
+          },
+        },
+        ruff = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -444,6 +457,10 @@ require('lazy').setup({
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             -- local blink_capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities)
+            if server_name == 'ruff' then
+              -- Disable hover in favor of Pyright
+              server.capabilities.hoverProvider = false
+            end
             require('lspconfig')[server_name].setup(server)
           end,
         },

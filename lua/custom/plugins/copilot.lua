@@ -28,6 +28,17 @@ return {
             open = '<M-CR>',
           },
         },
+        filetypes = {
+          yaml = false,
+          markdown = true,
+          help = false,
+          gitcommit = false,
+          gitrebase = false,
+          hgcommit = false,
+          svn = false,
+          cvs = false,
+          ['.'] = false,
+        },
       }
     end,
   },
