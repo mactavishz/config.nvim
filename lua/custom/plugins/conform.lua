@@ -6,7 +6,7 @@ return { -- Autoformat
     {
       '<leader>cf',
       function()
-        require('conform').format { async = false, lsp_format = 'fallback', timeout_ms = 1000 }
+        require('conform').format { async = true, lsp_format = 'fallback', timeout_ms = 2500 }
       end,
       mode = { 'n', 'v' },
       desc = 'Format file or range (in visual mode)',
@@ -33,7 +33,7 @@ return { -- Autoformat
     format_on_save = {
       -- I recommend these options. See :help conform.format for details.
       lsp_format = 'fallback',
-      timeout_ms = 500,
+      timeout_ms = 2500,
     },
     formatters_by_ft = {
       -- Conform can also run multiple formatters sequentially
@@ -47,6 +47,8 @@ return { -- Autoformat
       rust = { 'rustfmt', lsp_format = 'fallback' },
       -- Conform will run the first available formatter
       javascript = { 'prettierd', 'prettier', stop_after_first = true },
+
+      astro = { 'prettier' },
 
       go = { 'goimports', 'gofmt' },
 
