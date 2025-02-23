@@ -321,7 +321,18 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local util = require 'lspconfig/util'
       local servers = {
-        astro = {},
+        astro = {
+          filetypes = { 'astro' }, -- Ensure .mdx is recognized
+          cmd = { 'astro-ls', '--stdio' }, -- Ensure correct language server command
+          root_dir = util.root_pattern('package.json', 'tsconfig.json', '.git'),
+        },
+        mdx_analyzer = {
+          init_options = {
+            typescript = {
+              enabled = true,
+            },
+          },
+        },
         clangd = {
           filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
         },
@@ -389,6 +400,11 @@ require('lazy').setup({
 
       -- configure filetype
       vim.filetype.add { pattern = { ['.*%.ansible%..*'] = 'yaml.ansible' } }
+      -- vim.filetype.add {
+      --   extension = {
+      --     mdx = 'mdx',
+      --   },
+      -- }
 
       require('mason').setup()
 
@@ -439,6 +455,12 @@ require('lazy').setup({
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
+    -- config = function(_, opts)
+    --   require('nvim-treesitter.configs').setup(opts)
+    --   -- tell treesitter to use the markdown parser for mdx files
+    --   --- See https://morizbuesing.com/blog/mdx-support-in-nvchad/
+    --   vim.treesitter.language.register('markdown', 'mdx')
+    -- end,
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
