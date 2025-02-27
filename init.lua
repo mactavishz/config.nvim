@@ -1,3 +1,4 @@
+local is_vscode = vim.g.vscode ~= nil
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -35,6 +36,7 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
+    cond = not is_vscode,
     opts = {
       signs = {
         add = { text = '+' },
@@ -48,6 +50,7 @@ require('lazy').setup({
 
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
+    cond = not is_vscode,
     event = 'VimEnter',
     branch = '0.1.x',
     dependencies = {
@@ -172,6 +175,7 @@ require('lazy').setup({
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
     'folke/lazydev.nvim',
+    cond = not is_vscode,
     ft = 'lua',
     opts = {
       library = {
@@ -180,10 +184,11 @@ require('lazy').setup({
       },
     },
   },
-  { 'Bilal2453/luvit-meta', lazy = true },
+  { 'Bilal2453/luvit-meta', cond = not is_vscode, lazy = true },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
+    cond = not is_vscode,
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- 'saghen/blink.cmp',

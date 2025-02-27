@@ -1,5 +1,6 @@
 return {
   'NeogitOrg/neogit',
+  cond = vim.g.vscode == nil,
   dependencies = {
     'nvim-lua/plenary.nvim', -- required
     'sindrets/diffview.nvim', -- optional - Diff integration

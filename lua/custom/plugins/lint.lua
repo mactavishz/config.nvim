@@ -3,6 +3,7 @@ return {
   { -- Linting
     'mfussenegger/nvim-lint',
     event = { 'BufReadPre', 'BufNewFile' },
+    cond = vim.g.vscode == nil,
     config = function()
       local lint = require 'lint'
       lint.linters_by_ft = {

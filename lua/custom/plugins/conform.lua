@@ -2,6 +2,7 @@ return { -- Autoformat
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
   cmd = { 'ConformInfo' },
+  cond = vim.g.vscode == nil,
   keys = {
     {
       '<leader>cf',

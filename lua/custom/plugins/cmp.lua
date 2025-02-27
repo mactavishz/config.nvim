@@ -1,5 +1,6 @@
 return { -- Autocompletion
   'hrsh7th/nvim-cmp',
+  cond = vim.g.vscode == nil,
   event = 'InsertEnter',
   dependencies = {
     'nvim-tree/nvim-web-devicons',

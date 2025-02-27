@@ -1,5 +1,6 @@
 return {
   'danymat/neogen',
+  cond = vim.g.vscode == nil,
   config = function()
     local neogen = require 'neogen'
     neogen.setup {

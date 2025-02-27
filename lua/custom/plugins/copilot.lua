@@ -3,6 +3,7 @@ return {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     event = 'InsertEnter',
+    cond = vim.g.vscode == nil,
     config = function()
       require('copilot').setup {
         suggestion = {
@@ -42,11 +43,9 @@ return {
       }
     end,
   },
-  -- {
-  --   'giuxtaposition/blink-cmp-copilot',
-  -- },
   {
     'zbirenbaum/copilot-cmp',
+    cond = vim.g.vscode == nil,
     config = function()
       require('copilot_cmp').setup()
     end,

@@ -1,6 +1,7 @@
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons', 'bwpge/lualine-pretty-path' },
+  cond = vim.g.vscode == nil,
   config = function()
     -- Derived from Eviline config for lualine
     -- Link: https://github.com/nvim-lualine/lualine.nvim/blob/master/examples/evil_lualine.lua

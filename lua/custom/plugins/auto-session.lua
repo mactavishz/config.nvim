@@ -1,5 +1,6 @@
 return {
   'rmagatti/auto-session',
+  cond = vim.g.vscode == nil,
   lazy = false,
   keys = {
     { '<leader>fs', '<cmd>SessionSearch<CR>', desc = 'Session search' },
