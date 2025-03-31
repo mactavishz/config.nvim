@@ -43,11 +43,11 @@ return {
       }
     end,
   },
-  {
-    'zbirenbaum/copilot-cmp',
-    cond = vim.g.vscode == nil,
-    config = function()
-      require('copilot_cmp').setup()
-    end,
-  },
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   cond = vim.g.vscode == nil,
+  --   config = function()
+  --     require('copilot_cmp').setup()
+  --   end,
+  -- },
 }

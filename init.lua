@@ -191,7 +191,7 @@ require('lazy').setup({
     cond = not is_vscode,
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      -- 'saghen/blink.cmp',
+      'saghen/blink.cmp',
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -201,7 +201,7 @@ require('lazy').setup({
       { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
-      'hrsh7th/cmp-nvim-lsp',
+      -- 'hrsh7th/cmp-nvim-lsp',
     },
     config = function(_, opts)
       --  This function gets run when an LSP attaches to a particular buffer.
@@ -426,8 +426,8 @@ require('lazy').setup({
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            -- local blink_capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities)
+            local blink_capabilities = require('blink.cmp').get_lsp_capabilities({}, false)
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, blink_capabilities)
             if server_name == 'ruff' then
               -- Disable hover in favor of Pyright
               server.capabilities.hoverProvider = false
