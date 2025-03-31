@@ -6,6 +6,7 @@ return {
     flavour = 'mocha',
     integrations = {
       cmp = true,
+      blink_cmp = true,
       gitsigns = true,
       treesitter = true,
       notify = false,
