@@ -11,18 +11,18 @@ return {
     -- Smartly opens either git_files or find_files, depending on whether the working directory is
     -- contained in a Git repo.
     function find_project_files()
-      local ok = pcall(FzfLua.git_files)
-
-      if not ok then
-        FzfLua.find_files { resume = true }
-      end
+      FzfLua.files { resume = true }
+      -- end
     end
     FzfLua.setup(opts)
     map('n', '<leader>fh', FzfLua.helptags, { desc = '[F]ind [H]elp' })
     map('n', '<leader>fk', FzfLua.keymaps, { desc = '[F]ind [K]eymaps' })
-    map('n', '<leader>ff', find_project_files, { desc = '[F]ind [F]iles' })
+    map('n', '<leader>ff', function()
+      FzfLua.files { resume = true }
+    end, { desc = '[F]ind [F]iles' })
     map('n', '<leader>fw', FzfLua.grep_cword, { desc = '[F]ind current [W]ord' })
-    map('n', '<leader>fg', FzfLua.live_grep, { desc = '[F]ind by [G]rep' })
+    map('n', '<leader>fg', FzfLua.git_files, { desc = '[F]ind by [g]it' })
+    map('n', '<leader>fG', FzfLua.live_grep, { desc = '[F]ind by [G]rep' })
     map('n', '<leader>fd', FzfLua.diagnostics_document, { desc = '[F]ind [D]iagnostics' })
     map('n', '<leader>fr', FzfLua.resume, { desc = '[F]ind [R]esume' })
     map('n', '<leader>f.', FzfLua.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
