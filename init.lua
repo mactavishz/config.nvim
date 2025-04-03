@@ -4,6 +4,7 @@ local is_vscode = vim.g.vscode ~= nil
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.have_nerd_font = true
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -176,12 +177,12 @@ require('lazy').setup({
         float = { border = 'rounded', source = 'if_many' },
         -- underline = { severity = vim.diagnostic.severity.ERROR },
         signs = {
-          text = {
+          text = vim.g.have_nerd_font and {
             [vim.diagnostic.severity.ERROR] = '󰅚',
             [vim.diagnostic.severity.WARN] = '󰀪',
             [vim.diagnostic.severity.INFO] = '󰋽',
             [vim.diagnostic.severity.HINT] = '󰌶',
-          },
+          } or {},
         },
         virtual_text = false,
         -- virtual_text = {
