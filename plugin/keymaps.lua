@@ -15,6 +15,14 @@ vim.keymap.set('n', '<CR>', function()
   end
 end, { expr = true })
 
+vim.keymap.set('n', '<leader>dt', function()
+  if vim.diagnostic.is_enabled() then
+    vim.diagnostic.enable(false)
+  else
+    vim.diagnostic.enable()
+  end
+end)
+
 -- Exit insert mode without hitting Esc
 vim.keymap.set('i', 'jk', '<Esc><Esc>', { desc = 'Esc' })
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
