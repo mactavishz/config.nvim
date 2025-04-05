@@ -272,7 +272,19 @@ require('lazy').setup({
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
-          -- capabilities = {},
+          root_dir = function(fname)
+            -- Try to find a proper root using Git or Lua config files
+            local git_dir = vim.fs.find({ '.git' }, { upward = true, path = fname })[1]
+            if git_dir then
+              return vim.fs.dirname(git_dir)
+            end
+            -- Otherwise, fallback to finding Lua configuration files
+            local root_pattern =
+              util.root_pattern('.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml', '.git')
+            -- If no root config found, fallback to current working directory
+            return root_pattern(fname) or vim.fn.getcwd()
+          end,
+          single_file_support = true, -- Support for single Lua file -- capabilities = {},
           settings = {
             Lua = {
               completion = {
