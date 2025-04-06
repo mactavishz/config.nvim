@@ -23,16 +23,11 @@ return {
           ['ctrl-t'] = fzf_lua.actions.file_tabedit,
           ['alt-q'] = fzf_lua.actions.file_sel_to_qf,
         },
-        buffers = {
-          ['default'] = fzf_lua.actions.buf_edit,
-          ['ctrl-x'] = fzf_lua.actions.buf_split,
-          ['ctrl-v'] = fzf_lua.actions.buf_vsplit,
-          ['ctrl-t'] = fzf_lua.actions.buf_tabedit,
-        },
       },
       buffers = {
         actions = {
           ['ctrl-d'] = { fzf_lua.actions.buf_del, fzf_lua.actions.resume },
+          ['ctrl-x'] = fzf_lua.actions.buf_split,
         },
       },
     }
