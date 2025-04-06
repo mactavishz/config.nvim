@@ -6,28 +6,49 @@ return {
   -- dependencies = { "echasnovski/mini.icons" },
   opts = {},
   config = function(_, opts)
-    local FzfLua = require 'fzf-lua'
+    local fzf_lua = require 'fzf-lua'
     local map = vim.keymap.set
     -- Smartly opens either git_files or find_files, depending on whether the working directory is
     -- contained in a Git repo.
     function find_project_files()
-      FzfLua.files { resume = true }
+      fzf_lua.files { resume = true }
       -- end
     end
-    FzfLua.setup(opts)
-    map('n', '<leader>fh', FzfLua.helptags, { desc = '[F]ind [H]elp' })
-    map('n', '<leader>fk', FzfLua.keymaps, { desc = '[F]ind [K]eymaps' })
+    fzf_lua.setup {
+      actions = {
+        files = {
+          ['default'] = fzf_lua.actions.file_edit_or_qf,
+          ['ctrl-x'] = fzf_lua.actions.file_split,
+          ['ctrl-v'] = fzf_lua.actions.file_vsplit,
+          ['ctrl-t'] = fzf_lua.actions.file_tabedit,
+          ['alt-q'] = fzf_lua.actions.file_sel_to_qf,
+        },
+        buffers = {
+          ['default'] = fzf_lua.actions.buf_edit,
+          ['ctrl-x'] = fzf_lua.actions.buf_split,
+          ['ctrl-v'] = fzf_lua.actions.buf_vsplit,
+          ['ctrl-t'] = fzf_lua.actions.buf_tabedit,
+        },
+      },
+      buffers = {
+        actions = {
+          ['ctrl-d'] = { fzf_lua.actions.buf_del, fzf_lua.actions.resume },
+        },
+      },
+    }
+    map('n', '<leader>fh', fzf_lua.helptags, { desc = '[F]ind [H]elp' })
+    map('n', '<leader>fk', fzf_lua.keymaps, { desc = '[F]ind [K]eymaps' })
     map('n', '<leader>ff', function()
-      FzfLua.files { resume = true }
+      fzf_lua.files { resume = true }
     end, { desc = '[F]ind [F]iles' })
-    map('n', '<leader>fw', FzfLua.grep_cword, { desc = '[F]ind current [W]ord' })
-    map('n', '<leader>fg', FzfLua.git_files, { desc = '[F]ind by [g]it' })
-    map('n', '<leader>fG', FzfLua.live_grep, { desc = '[F]ind by [G]rep' })
-    map('n', '<leader>fd', FzfLua.diagnostics_document, { desc = '[F]ind [D]iagnostics' })
-    map('n', '<leader>fr', FzfLua.resume, { desc = '[F]ind [R]esume' })
-    map('n', '<leader>f.', FzfLua.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
-    map('n', '<space><space>', FzfLua.buffers, { desc = '[F]ind existing buffers' })
+    map('n', '<leader>fw', fzf_lua.grep_cword, { desc = '[F]ind current [W]ord' })
+    map('n', '<leader>fg', fzf_lua.git_files, { desc = '[F]ind by [g]it' })
+    map('n', '<leader>fG', fzf_lua.live_grep, { desc = '[F]ind by [G]rep' })
+    map('n', '<leader>fd', fzf_lua.diagnostics_document, { desc = '[F]ind [D]iagnostics' })
+    map('n', '<leader>fr', fzf_lua.resume, { desc = '[F]ind [R]esume' })
+    map('n', '<leader>f.', fzf_lua.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
+    map('n', '<space><space>', fzf_lua.buffers, { desc = '[F]ind existing buffers' })
     -- -- Slightly advanced example of overriding default behavior and theme
-    map('n', '<leader>/', FzfLua.blines, { desc = '[/] Fuzzily search in current buffer' })
+    map('n', '<leader>/', fzf_lua.blines, { desc = '[/] Fuzzily search in current buffer' })
   end,
 }
