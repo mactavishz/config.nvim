@@ -5,6 +5,7 @@ return {
     -- or if using `mini.icons`
     -- { "echasnovski/mini.icons" },
   },
+  cond = vim.g.vscode == nil,
   opts = {
     show_icons = true,
     leader_key = ';', -- Recommended to be a single key
