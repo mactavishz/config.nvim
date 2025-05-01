@@ -33,9 +33,7 @@ return {
     }
     map('n', '<leader>fh', fzf_lua.helptags, { desc = '[F]ind [H]elp' })
     map('n', '<leader>fk', fzf_lua.keymaps, { desc = '[F]ind [K]eymaps' })
-    map('n', '<leader>ff', function()
-      fzf_lua.files { resume = true }
-    end, { desc = '[F]ind [F]iles' })
+    map('n', '<leader>ff', fzf_lua.files, { desc = '[F]ind [F]iles' })
     map('n', '<leader>fw', fzf_lua.grep_cword, { desc = '[F]ind current [W]ord' })
     map('n', '<leader>fg', fzf_lua.git_files, { desc = '[F]ind by [g]it' })
     map('n', '<leader>fG', fzf_lua.live_grep, { desc = '[F]ind by [G]rep' })
