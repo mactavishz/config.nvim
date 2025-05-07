@@ -41,6 +41,11 @@ return {
           ['.'] = false,
         },
       }
+
+      -- Start Copilot in disabled state
+      vim.defer_fn(function()
+        vim.cmd 'Copilot disable'
+      end, 100)
     end,
   },
   -- {
