@@ -40,8 +40,8 @@ vim.keymap.set({ 'n', 'o', 'x' }, '<s-l>', 'g_', { desc = 'Jump to end of line' 
 
 if not is_vscode then
   -- Save and quit
-  vim.keymap.set('n', 'QQ', ':q!<enter>', { noremap = false })
-  vim.keymap.set('n', 'WW', ':w!<enter>', { noremap = false })
+  -- vim.keymap.set('n', 'QQ', ':q!<enter>', { noremap = false })
+  -- vim.keymap.set('n', 'WW', ':w!<enter>', { noremap = false })
   -- Move block
   vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move Block Down' })
   vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move Block Up' })
