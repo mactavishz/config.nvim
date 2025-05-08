@@ -38,7 +38,6 @@ return {
     map('n', '<leader>fg', fzf_lua.git_files, { desc = '[F]ind by [g]it' })
     map('n', '<leader>fG', fzf_lua.live_grep, { desc = '[F]ind by [G]rep' })
     map('n', '<leader>fd', fzf_lua.diagnostics_document, { desc = '[F]ind [D]iagnostics' })
-    map('n', '<leader>fr', fzf_lua.resume, { desc = '[F]ind [R]esume' })
     map('n', '<leader>f.', fzf_lua.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
     map('n', '<space><space>', fzf_lua.buffers, { desc = '[F]ind existing buffers' })
     -- -- Slightly advanced example of overriding default behavior and theme
