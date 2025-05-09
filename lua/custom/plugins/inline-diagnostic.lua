@@ -7,7 +7,7 @@ return {
       preset = 'classic', -- "classic" or "modern"
       transparent_bg = true,
       options = {
-        use_icons_from_diagnostic = true,
+        use_icons_from_diagnostic = false,
         throttle = 0,
         multiple_diag_under_cursor = true,
         multilines = {
