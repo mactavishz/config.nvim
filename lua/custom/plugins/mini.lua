@@ -23,5 +23,11 @@ return { -- Collection of various small independent plugins/modules
     require('mini.pairs').setup()
     -- ... and there is more!
     --  Check out: https://github.com/echasnovski/mini.nvim
+
+    -- Visualize and work with indent scope
+    -- Checkout: https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-indentscope.md
+    require('mini.indentscope').setup({
+      symbol = '┊',
+    })
   end,
 }

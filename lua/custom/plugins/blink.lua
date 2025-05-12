@@ -55,8 +55,8 @@ return {
       ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
       ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
       -- Don't use tabs
-      -- ['<Tab>'] = { 'snippet_forward', 'fallback' },
-      -- ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+      ['<Tab>'] = nil,
+      ['<S-Tab>'] = nil,
     },
 
     snippets = {
