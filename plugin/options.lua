@@ -67,9 +67,8 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars:append('space:·')
-vim.opt.listchars:append('tab:··')
-vim.opt.listchars:append('eol:↴')
+vim.opt.listchars:append 'space:·'
+vim.opt.listchars:append 'tab:··'
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
