@@ -9,6 +9,14 @@ vim.g.have_nerd_font = true
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
+-- Treat .proto files as plain text
+-- temporary fix for proto files, since there is not a proper language server for it
+vim.filetype.add {
+  extension = {
+    proto = 'text',
+  },
+}
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
@@ -223,9 +231,6 @@ require('lazy').setup({
         },
         clangd = {
           filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
-        },
-        buf_ls = {
-          filetypes = { 'proto' },
         },
         gopls = {
           filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },

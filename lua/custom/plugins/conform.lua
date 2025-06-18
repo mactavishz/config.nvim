@@ -53,8 +53,6 @@ return { -- Autoformat
 
       go = { 'goimports', 'gofmt' },
 
-      proto = { 'buf' },
-
       yaml = { 'yamlfix' },
 
       sh = { 'shfmt' },
