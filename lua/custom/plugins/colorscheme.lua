@@ -1,6 +1,7 @@
 return {
   'catppuccin/nvim',
   name = 'catppuccin',
+  cond = vim.g.vscode == nil,
   priority = 1000,
   opt = {
     flavour = 'mocha',

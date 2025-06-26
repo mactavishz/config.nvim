@@ -1,6 +1,7 @@
 return {
   {
     'rachartier/tiny-inline-diagnostic.nvim',
+    cond = vim.g.vscode == nil,
     event = 'VeryLazy', -- Or `LspAttach`
     priority = 1000, -- needs to be loaded in first
     opts = {
